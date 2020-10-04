@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component
 public class UserDaoService {
-    private static List<User> users = new ArrayList<>();
+    private static final List<User> users = new ArrayList<>();
     public static int usersCount = 3;
 
     static {
@@ -21,12 +21,11 @@ public class UserDaoService {
         return users;
     }
 
-    public User save(User user) {
+    public void save(User user) {
         if (user.getId() == null) {
             user.setId(++usersCount);
         }
         users.add(user);
-        return user;
     }
 
     public User findOne(int id) {
@@ -36,5 +35,9 @@ public class UserDaoService {
             }
         }
         return null;
+    }
+
+    public void delete(int id) {
+        users.removeIf((u -> u.getId().equals(id)));
     }
 }
