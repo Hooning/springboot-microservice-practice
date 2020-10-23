@@ -14,26 +14,26 @@ public class PostResource {
     private PostDaoService postService;
 
     // retrieveAllPosts
-    @GetMapping("/posts")
-    public List<Post> retrieveAllPosts() {
-        return postService.findAll();
+    @GetMapping("/users/{userId}/posts")
+    public List<Post> retrieveAllPosts(@PathVariable Integer userId) {
+        return postService.findAll(userId);
     }
 
     // retrieveSinglePost
-    @GetMapping("/posts/{postId}")
-    public Post retrieveSinglePost(@PathVariable String postId) {
-        Post post = postService.findOne(postId);
+    @GetMapping("/users/{userId}/posts/{postId}")
+    public Post retrieveSinglePost(@PathVariable Integer userId, @PathVariable String postId) {
+        Post post = postService.findOne(userId, postId);
 
         if (post == null) {
-            throw new PostNotFoundException("postId = [" + postId + "] does not exist");
+            throw new PostNotFoundException("userId = [" + userId + "] and postId = [" + postId + "] does not exist");
         }
         return post;
     }
 
     // create new post
-    @PostMapping("/posts")
-    public ResponseEntity<Post> createPost(@RequestBody Post post) {
-        postService.save(post);
+    @PostMapping("/users/{userId}/posts")
+    public ResponseEntity<Post> createPost(@PathVariable Integer userId, @RequestBody Post post) {
+        postService.save(userId, post);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

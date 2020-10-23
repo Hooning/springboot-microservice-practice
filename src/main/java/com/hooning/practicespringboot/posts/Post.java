@@ -5,16 +5,26 @@ import com.hooning.practicespringboot.user.User;
 import java.util.Date;
 
 public class Post {
+    private Integer userId;
     private String postId;
     private String content;
     private User postedBy;
     private Date postedOn;
 
-    public Post(String postId, String content, User postedBy, Date postedOn) {
+    public Post(Integer userId, String postId, String content, User postedBy, Date postedOn) {
+        this.userId = userId;
         this.postId = postId;
         this.content = content;
         this.postedBy = postedBy;
         this.postedOn = postedOn;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getPostId() {
