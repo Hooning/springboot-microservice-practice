@@ -1,6 +1,9 @@
 package com.hooning.practicespringboot.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,13 +25,22 @@ public class UserResource {
 
     // retrieveUser(int id)
     @GetMapping("/users/{id}")
-    public User retrieveUser(@PathVariable final int id) {
+    public EntityModel<User> retrieveUser(@PathVariable final int id) {
         User user = userService.findOne(id);
 
         if (user == null) {
             throw new UserNotFoundException("id-" + id);
         }
-        return user;
+
+        // HATEOAS
+        // include retrieveAllUsers
+        EntityModel<User> resource = EntityModel.of(user);
+        WebMvcLinkBuilder linkTo =
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).retrieveAllUsers());
+
+        resource.add(linkTo.withRel("all-users"));
+
+        return resource;
     }
 
     @PostMapping("/users")
