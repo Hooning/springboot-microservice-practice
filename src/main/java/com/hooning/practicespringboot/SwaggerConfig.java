@@ -9,6 +9,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ public class SwaggerConfig {
             "0.1", "urn:tos",
             DEFAULT_CONTACT, "Apache 2.0",
             "http://www.apache.org/licenses/LICENSE-2.0",
-            Arrays.asList();
+            Collections.emptyList());
 
     public static final Set<String> DEFAULT_PRODUCES_AND_CONSUMES =
             new HashSet<>(Arrays.asList("application/json", "application/xml"));
