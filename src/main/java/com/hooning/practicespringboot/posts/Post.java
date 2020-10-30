@@ -2,36 +2,41 @@ package com.hooning.practicespringboot.posts;
 
 import com.hooning.practicespringboot.user.User;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Entity
 public class Post {
-    private Integer userId;
-    private String postId;
+    @Id
+    @GeneratedValue
+    private Integer postId;
     private String content;
-    private User postedBy;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    private User user;
+    private Integer postedById;
+
     private Date postedOn;
 
-    public Post(Integer userId, String postId, String content, User postedBy, Date postedOn) {
-        this.userId = userId;
+    public Post(Integer postId, String content, Integer postedById, Date postedOn) {
         this.postId = postId;
         this.content = content;
-        this.postedBy = postedBy;
+        this.postedById = postedById;
         this.postedOn = postedOn;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Post() {}
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getPostId() {
+    public Integer getPostId() {
         return postId;
     }
 
-    public void setPostId(String postId) {
+    public void setPostId(Integer postId) {
         this.postId = postId;
     }
 
@@ -43,12 +48,12 @@ public class Post {
         this.content = content;
     }
 
-    public User getPostedBy() {
-        return postedBy;
+    public Integer getPostedById() {
+        return postedById;
     }
 
-    public void setPostedBy(User postedBy) {
-        this.postedBy = postedBy;
+    public void setPostedById(Integer postedById) {
+        this.postedById = postedById;
     }
 
     public Date getPostedOn() {
