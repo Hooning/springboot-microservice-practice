@@ -38,7 +38,7 @@ public class PostJpaResource {
     // create new post
     @PostMapping("/jpa/users/{userId}/posts")
     public ResponseEntity<Post> createPost(@PathVariable Integer userId, @RequestBody Post post) {
-        post.setUser(userRepository.getOne(userId));
+        post.setUser(userRepository.findById(userId).orElse(null));
         postRepository.save(post);
 
         URI location = ServletUriComponentsBuilder
