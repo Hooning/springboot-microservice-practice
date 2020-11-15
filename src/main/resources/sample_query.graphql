@@ -1,0 +1,11 @@
+{
+  postById(postId: 1001) {
+    postId
+    content
+    user {
+      name
+      birthDate
+    }
+    postedOn
+  }
+}

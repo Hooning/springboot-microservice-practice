@@ -40,7 +40,6 @@ public class PostJpaResource {
     public ResponseEntity<Post> createPost(@PathVariable Integer userId, @RequestBody Post post) {
         post.setUser(userRepository.findById(userId).orElse(null));
         postRepository.save(post);
-
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{postId}")

@@ -3,7 +3,6 @@ package com.hooning.practicespringboot.posts;
 import com.hooning.practicespringboot.user.User;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -11,6 +10,7 @@ public class Post {
     @Id
     @GeneratedValue
     private Integer postId;
+
     private String content;
 
     @ManyToOne(fetch=FetchType.LAZY)
