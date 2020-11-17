@@ -1,4 +1,4 @@
-{
+query {
   postById(postId: 1001) {
     postId
     content
